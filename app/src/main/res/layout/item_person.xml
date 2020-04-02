@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cardview_dark_background"
+            android:id="@+id/ivPerson"
+            android:src="@drawable/ic_launcher_foreground"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvPerson"
+            android:text="Nome Personagem"
+            android:padding="10dp"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnInfo"
+            android:text="Ver mais"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:background="@color/colorAccent"
+            android:gravity="right"
+            android:textColor="@android:color/black"
+            android:padding="10dp"
+            />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
