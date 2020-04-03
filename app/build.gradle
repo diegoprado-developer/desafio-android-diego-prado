@@ -19,8 +19,30 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "MARVEL_PRIVATE_KEY", getPrivateApiKey())
+            buildConfigField("String", "MARVEL_PUBLIC_KEY", getApiKey())
+        }
+        debug {
+            buildConfigField("String", "MARVEL_PRIVATE_KEY", getPrivateApiKey())
+            buildConfigField("String", "MARVEL_PUBLIC_KEY", getApiKey())
         }
     }
+}
+
+def getApiKey() {
+    def keysFile = file("keys.properties")
+    def keysProperties = new Properties()
+    keysProperties.load(new FileInputStream(keysFile))
+    def apiKey = keysProperties['MARVEL_PUBLIC_KEY']
+    return apiKey
+}
+
+def getPrivateApiKey() {
+    def keysFile = file("keys.properties")
+    def keysProperties = new Properties()
+    keysProperties.load(new FileInputStream(keysFile))
+    def apiKey = keysProperties['MARVEL_PRIVATE_KEY']
+    return apiKey
 }
 
 dependencies {

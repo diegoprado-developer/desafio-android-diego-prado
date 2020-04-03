@@ -25,7 +25,8 @@ class PersonAdapter(val list: List<Person>, val context: Context): RecyclerView.
         val person = list[position]
         holder.apply {
             name.text = person.name
-            Picasso.get().load(person.thumbnail).into(holder.thumbnail)
+            val url = person.thumbnail.path + "." + person.thumbnail.extension
+            Picasso.get().load(url).into(holder.thumbnail)
         }
     }
 
