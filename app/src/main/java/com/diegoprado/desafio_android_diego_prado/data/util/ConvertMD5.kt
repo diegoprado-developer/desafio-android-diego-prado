@@ -1,4 +1,4 @@
-package com.diegoprado.desafio_android_diego_prado.util
+package com.diegoprado.desafio_android_diego_prado.data.util
 
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
