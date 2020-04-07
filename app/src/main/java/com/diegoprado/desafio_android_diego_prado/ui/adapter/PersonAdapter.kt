@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.diegoprado.desafio_android_diego_prado.R
 import com.diegoprado.desafio_android_diego_prado.data.model.Results
@@ -41,7 +43,9 @@ class PersonAdapter(val list: List<Results>,val contex: Context): RecyclerView.A
         holder.infoDetail.setOnClickListener {
             val intent = Intent(contex, DetailPerson::class.java)
             intent.putExtra("positionItem", pos)
-            contex.startActivity(intent)
+            val activityOptionsCompat = ActivityOptionsCompat.makeCustomAnimation(contex, R.anim.fade_out, R.anim.mover_esquerda)
+            ActivityCompat.startActivity(contex, intent, activityOptionsCompat.toBundle())
+//            contex.startActivity(intent)
         }
     }
 

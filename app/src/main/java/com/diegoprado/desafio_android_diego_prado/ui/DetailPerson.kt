@@ -1,6 +1,7 @@
 package com.diegoprado.desafio_android_diego_prado.ui
 
 import android.os.Bundle
+import android.view.ActionMode
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.ViewFlipper
@@ -31,8 +32,6 @@ class DetailPerson : AppCompatActivity() {
         imgPerson = findViewById(R.id.ivPersonDetail)
         flipper = findViewById(R.id.vp)
 
-        this.flipper.displayedChild = 0
-
         val bundle: Bundle? = intent.extras
         itemPosition = bundle?.get("positionItem").toString().toInt()
 
@@ -56,5 +55,10 @@ class DetailPerson : AppCompatActivity() {
         })
 
         viewModel.createAdapter()
+    }
+
+    override fun onActionModeFinished(mode: ActionMode?) {
+        super.onActionModeFinished(mode)
+        overridePendingTransition(R.anim.mover_direita, R.anim.fade_in)
     }
 }
