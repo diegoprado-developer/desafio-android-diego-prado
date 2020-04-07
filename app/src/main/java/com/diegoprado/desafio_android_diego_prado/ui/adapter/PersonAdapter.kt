@@ -1,5 +1,7 @@
 package com.diegoprado.desafio_android_diego_prado.ui.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +11,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.diegoprado.desafio_android_diego_prado.R
 import com.diegoprado.desafio_android_diego_prado.data.model.Results
+import com.diegoprado.desafio_android_diego_prado.ui.DetailPerson
 import com.squareup.picasso.Picasso
 
-class PersonAdapter(val list: List<Results>): RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
+class PersonAdapter(val list: List<Results>,val contex: Context): RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_person, parent, false)
@@ -29,6 +32,16 @@ class PersonAdapter(val list: List<Results>): RecyclerView.Adapter<PersonAdapter
             name.text = person.name
             val url = person.thumbnail.path + "." + person.thumbnail.extension
             Picasso.get().load(url).into(holder.thumbnail)
+
+            loadDetail(holder, position)
+        }
+    }
+
+    fun loadDetail(holder:ViewHolder, pos: Int) {
+        holder.infoDetail.setOnClickListener {
+            val intent = Intent(contex, DetailPerson::class.java)
+            intent.putExtra("positionItem", pos)
+            contex.startActivity(intent)
         }
     }
 
@@ -37,6 +50,5 @@ class PersonAdapter(val list: List<Results>): RecyclerView.Adapter<PersonAdapter
         val thumbnail: ImageView = itemView.findViewById(R.id.ivPerson)
         val infoDetail: Button = itemView.findViewById(R.id.btnInfo)
     }
-
 
 }
