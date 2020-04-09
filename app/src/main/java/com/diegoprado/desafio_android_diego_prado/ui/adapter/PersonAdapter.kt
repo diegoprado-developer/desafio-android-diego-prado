@@ -13,7 +13,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.diegoprado.desafio_android_diego_prado.R
 import com.diegoprado.desafio_android_diego_prado.data.model.Results
-import com.diegoprado.desafio_android_diego_prado.ui.DetailPerson
+import com.diegoprado.desafio_android_diego_prado.ui.activity.DetailPersonActivity
 import com.squareup.picasso.Picasso
 
 class PersonAdapter(val list: List<Results>,val contex: Context): RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
@@ -41,7 +41,7 @@ class PersonAdapter(val list: List<Results>,val contex: Context): RecyclerView.A
 
     fun loadDetail(holder:ViewHolder, pos: Int) {
         holder.infoDetail.setOnClickListener {
-            val intent = Intent(contex, DetailPerson::class.java)
+            val intent = Intent(contex, DetailPersonActivity::class.java)
             intent.putExtra("positionItem", pos)
             val activityOptionsCompat = ActivityOptionsCompat.makeCustomAnimation(contex, R.anim.fade_out, R.anim.mover_esquerda)
             ActivityCompat.startActivity(contex, intent, activityOptionsCompat.toBundle())

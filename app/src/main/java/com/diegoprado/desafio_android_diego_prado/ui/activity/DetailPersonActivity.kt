@@ -1,5 +1,7 @@
-package com.diegoprado.desafio_android_diego_prado.ui
+package com.diegoprado.desafio_android_diego_prado.ui.activity
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
@@ -14,10 +16,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.diegoprado.desafio_android_diego_prado.R
 import com.diegoprado.desafio_android_diego_prado.data.model.Results
+import com.diegoprado.desafio_android_diego_prado.ui.IResponse
 import com.diegoprado.desafio_android_diego_prado.ui.viewmodel.PersonViewModel
 import com.squareup.picasso.Picasso
 
-class DetailPerson : AppCompatActivity() {
+class DetailPersonActivity : AppCompatActivity(),
+    IResponse {
 
     lateinit var textName: TextView
     lateinit var textDescription: TextView
@@ -61,18 +65,35 @@ class DetailPerson : AppCompatActivity() {
 
         })
 
-        viewModel.createAdapter()
+        viewModel.createAdapter(this@DetailPersonActivity)
 
         btnComic.setOnClickListener{
-            val intent = Intent(this@DetailPerson, CuriosidadeComics::class.java)
+            val intent = Intent(this@DetailPersonActivity, ComicsActivity::class.java)
             intent.putExtra("heroId", person.id)
-            val activityOptionsCompat = ActivityOptionsCompat.makeCustomAnimation(this@DetailPerson, R.anim.fade_out, R.anim.mover_esquerda)
-            ActivityCompat.startActivity(this@DetailPerson, intent, activityOptionsCompat.toBundle())
+            val activityOptionsCompat = ActivityOptionsCompat.makeCustomAnimation(this@DetailPersonActivity, R.anim.fade_out, R.anim.mover_esquerda)
+            ActivityCompat.startActivity(this@DetailPersonActivity, intent, activityOptionsCompat.toBundle())
         }
     }
 
     override fun onActionModeFinished(mode: ActionMode?) {
         super.onActionModeFinished(mode)
         overridePendingTransition(R.anim.mover_direita, R.anim.fade_in)
+    }
+
+    override fun OnSuccess() {
+        TODO("Not yet implemented")
+    }
+
+    override fun OnError(excecao: String) {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage(excecao)
+            .setCancelable(false)
+            .setPositiveButton("Finalizar", DialogInterface.OnClickListener {
+                    dialog, id -> finish()
+            })
+
+        val alert = dialogBuilder.create()
+        alert.setTitle("Falha")
+        alert.show()
     }
 }

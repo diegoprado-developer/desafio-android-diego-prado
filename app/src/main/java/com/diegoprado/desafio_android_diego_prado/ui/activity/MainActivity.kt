@@ -1,9 +1,9 @@
-package com.diegoprado.desafio_android_diego_prado.ui
+package com.diegoprado.desafio_android_diego_prado.ui.activity
 
+import android.content.DialogInterface
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import android.widget.ViewFlipper
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.diegoprado.desafio_android_diego_prado.R
 import com.diegoprado.desafio_android_diego_prado.data.model.Results
+import com.diegoprado.desafio_android_diego_prado.ui.IResponse
 import com.diegoprado.desafio_android_diego_prado.ui.adapter.PersonAdapter
 import com.diegoprado.desafio_android_diego_prado.ui.viewmodel.PersonViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+    IResponse {
 
     lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: PersonViewModel
@@ -39,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.createAdapter()
+        viewModel.createAdapter(this@MainActivity)
     }
 
     private fun inflateList(adapter: PersonAdapter){
@@ -48,6 +50,23 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         this.flipper.displayedChild = 1
+    }
+
+    override fun OnSuccess() {
+        TODO("Not yet implemented")
+    }
+
+    override fun OnError(excecao: String) {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage(excecao)
+            .setCancelable(false)
+            .setPositiveButton("Fechar", DialogInterface.OnClickListener {
+                    dialog, id -> finish()
+            })
+
+        val alert = dialogBuilder.create()
+        alert.setTitle("Falha")
+        alert.show()
     }
 
 }

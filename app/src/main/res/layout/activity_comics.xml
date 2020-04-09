@@ -5,73 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.CuriosidadeComics">
+    tools:context=".ui.activity.ComicsActivity"
+    android:background="@color/colorAccent">
 
-    <LinearLayout
+
+    <ViewFlipper
+        android:id="@+id/vpComics"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvNameComic"
-            android:text="Madera Man in Maderaço"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:paddingTop="20px"
-            android:paddingBottom="20px"
-            />
-
-        <ImageView
-            android:layout_width="360dp"
-            android:layout_height="460dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@android:color/darker_gray"
-            android:id="@+id/ivPerson"
-            android:src="@drawable/ic_launcher_foreground"
-            android:layout_gravity="center"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvAnimeMaisCaro"
-            android:text="HQ Mais cara deste personagem"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:paddingTop="20px"
-            android:paddingBottom="20px"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvComicInfo"
-            android:text="is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-                         type specimen book. It has survived not only five centuries,
-                         but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                         with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="10px"
+        <include
+            layout="@layout/fragment_loading"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/labelPrice"
-                android:text="Preço:"
+                android:id="@+id/tvNameComic"
+                android:text="Madera Man in Maderaço"
+                android:textStyle="bold"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:paddingTop="20px"
+                android:paddingBottom="20px"
+                />
+
+            <ImageView
+                android:layout_width="360dp"
+                android:layout_height="460dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/ivComic"
+                android:src="@drawable/ic_launcher_foreground"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvAnimeMaisCaro"
+                android:text="HQ Mais cara deste personagem"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Large"
                 android:paddingTop="20px"
                 android:paddingBottom="20px"
                 />
@@ -79,16 +60,52 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvPrice"
-                android:text="19.99"
-                android:gravity="right"
+                android:id="@+id/tvComicInfo"
+                android:text="is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+                             type specimen book. It has survived not only five centuries,
+                             but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                             with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:paddingTop="20px"
-                android:paddingBottom="20px"
+                android:textColor="@android:color/tab_indicator_text"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:padding="10px"
                 />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/labelPrice"
+                    android:textStyle="bold"
+                    android:text="Preço:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:paddingTop="20px"
+                    android:paddingBottom="20px"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvPrice"
+                    android:text="19.99"
+                    android:textStyle="bold"
+                    android:gravity="right"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:paddingTop="20px"
+                    android:paddingBottom="20px"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ViewFlipper>
 
 </ScrollView>

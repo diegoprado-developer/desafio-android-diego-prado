@@ -8,6 +8,7 @@ import com.diegoprado.desafio_android_diego_prado.data.model.HeroEntity
 import com.diegoprado.desafio_android_diego_prado.data.model.Results
 import com.diegoprado.desafio_android_diego_prado.domain.CreateRequest
 import com.diegoprado.desafio_android_diego_prado.data.util.ConvertMD5
+import com.diegoprado.desafio_android_diego_prado.ui.IResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,16 +31,16 @@ class PersonViewModel(): ViewModel() {
         stringToHash = timeStamp.toString() + BuildConfig.MARVEL_PRIVATE_KEY + BuildConfig.MARVEL_PUBLIC_KEY
         hash = ConvertMD5().md5(stringToHash)
 
-        return heroRequest.getResult(timeStamp.toString(),
+        return heroRequest.getResultPerson(timeStamp.toString(),
             BuildConfig.MARVEL_PUBLIC_KEY, hash)
     }
 
-    fun createAdapter() {
+    fun createAdapter(context: IResponse) {
         val personObject = requestProject()
 
         personObject.enqueue(object : Callback<HeroEntity> {
             override fun onFailure(call: Call<HeroEntity>, t: Throwable) {
-                Log.e("ERROR-REPONSE", "Erro ao baixar dados. Mensagem: " + t.message)
+                context.OnError("Falha ao Acessar API")
             }
 
             override fun onResponse(call: Call<HeroEntity>, response: Response<HeroEntity>) {

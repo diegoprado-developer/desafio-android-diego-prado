@@ -1,27 +1,32 @@
 package com.diegoprado.desafio_android_diego_prado.ui.viewmodel
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.diegoprado.desafio_android_diego_prado.BuildConfig
-import com.diegoprado.desafio_android_diego_prado.data.model.ComicsEntity
-import com.diegoprado.desafio_android_diego_prado.data.model.HeroEntity
-import com.diegoprado.desafio_android_diego_prado.data.model.ResultComics
-import com.diegoprado.desafio_android_diego_prado.data.model.Results
+import com.diegoprado.desafio_android_diego_prado.data.model.*
 import com.diegoprado.desafio_android_diego_prado.data.util.ConvertMD5
 import com.diegoprado.desafio_android_diego_prado.domain.CreateRequest
+import com.diegoprado.desafio_android_diego_prado.ui.IResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.FieldPosition
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.log
 
-class ComisViewModel(): ViewModel() {
+class ComicsViewModel(): ViewModel() {
 
-    var list: ArrayList<ResultComics> = ArrayList()
+    lateinit var heroComics: ResultComics
     val comicRequest = CreateRequest().myRequest
-    var comicData: MutableLiveData<ArrayList<ResultComics>> = MutableLiveData()
+    var comicData: MutableLiveData<ResultComics> = MutableLiveData()
+    lateinit var price: Prices
     var timeStamp: Long = 0
     lateinit var stringToHash: String
     lateinit var hash: String
@@ -37,12 +42,14 @@ class ComisViewModel(): ViewModel() {
             BuildConfig.MARVEL_PUBLIC_KEY, hash)
     }
 
-    fun getComisData(heroId: Int) {
+    fun getComicsData(heroId: Int, context: IResponse) {
         val comicObject = requestProject(heroId)
+
 
         comicObject.enqueue(object : Callback<ComicsEntity> {
             override fun onFailure(call: Call<ComicsEntity>, t: Throwable) {
-                Log.e("ERROR-REPONSE", "Erro ao baixar dados. Mensagem: " + t.message)
+                context.OnError("Falha ao Acessar API")
+
             }
 
             override fun onResponse(call: Call<ComicsEntity>, response: Response<ComicsEntity>) {
@@ -51,13 +58,17 @@ class ComisViewModel(): ViewModel() {
 
                     it?.dataComics?.let {data ->
 
-                        data.resultsComics?.forEach { comics ->
+                        data.resultsComics.let { resultComic ->
 
-                            if( comics.heroId == heroId){
-                                list.add(comics)
+                            if (!resultComic.isNullOrEmpty()){
+                                heroComics = resultComic.get(0)
+                                comicData.value = heroComics
+                            }else{
+                                context.OnError("Não possui informações")
+
                             }
                         }
-                        comicData.value = list
+
                     }
                 }
             }
